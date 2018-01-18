@@ -1,6 +1,7 @@
 summarize_bar <- function(data, sum_by="SampleNum", tags=c("UP", "DOWN")) {
   
   library(tidyr)
+  library(dplyr)
   library(vegan)
   
   if(is.null(tags)) {
