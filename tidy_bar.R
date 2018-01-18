@@ -24,7 +24,6 @@ tidy_bar_tender <- function(sample_sheet, u_vector = NA) {
   } else { #if you passed it a vector it will combine those columns to make the UID
     z = z %>% unite_('UID', u_vector, remove = F)
   }
-  z <- z%>%left_join(z,gene_lookup_table%>%rename(Barcode=Systematic),by="Barcode")
   return(z)
 }
 
