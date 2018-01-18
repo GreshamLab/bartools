@@ -6,7 +6,7 @@
 
 ##this one is for output of bartender
 tidy_bar_tender <- function(sample_sheet) {
-  require(tidyverse) #make sure you have tidyverse loaded
+  library(tidyverse) #make sure you have tidyverse loaded
   s_sheet <- read_csv(sample_sheet) #read in samplesheet, column 1 must be File_path, column 2 must be Sample, other columns can be whatever metadata you would like
   z<-tibble(File_path=unique(s_sheet%>%pull(File_path)))%>%
     mutate(raw_data = map(File_path, function(x) { 
@@ -20,8 +20,8 @@ tidy_bar_tender <- function(sample_sheet) {
 
 
 #this one is for output of barnone
-tidy_bar_nun <- function(sample_sheet) {
-  require(tidyverse) #make sure you have tidyverse loaded
+tidy_bar_none <- function(sample_sheet) {
+  library(tidyverse) #make sure you have tidyverse loaded
   s_sheet <- read_csv(sample_sheet) #read in samplesheet, column 1 must be File_path, column 2 must be Sample, other columns can be whatever metadata you would like
   z<-tibble(File_path=unique(s_sheet%>%pull(File_path)))%>%
     mutate(raw_data = map(File_path, function(x) { 
