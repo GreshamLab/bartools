@@ -3,7 +3,9 @@
 ###2. assigns sample names and metadata
 ###3. tidies data
 ###4. assigns UID to each row, either default combination of path and sample or combines columns passed to u_vector
+library(tidyverse) 
 
+gene_lookup_table <- read_csv("gene_lookup_table.csv")
 
 ##this one is for output of bartender
 tidy_bar_tender <- function(sample_sheet, u_vector = NA) {
@@ -22,6 +24,7 @@ tidy_bar_tender <- function(sample_sheet, u_vector = NA) {
   } else { #if you passed it a vector it will combine those columns to make the UID
     z = z %>% unite_('UID', u_vector, remove = F)
   }
+  z <- z%>%left_join(z,gene_lookup_table%>%rename(Barcode=Systematic),by="Barcode")
   return(z)
 }
 
@@ -42,6 +45,7 @@ tidy_bar_none <- function(sample_sheet, u_vector = NA) {
   } else {
     z = z %>% unite_('UID', u_vector, remove = F)
   }
+  z <- z%>%left_join(z,gene_lookup_table%>%rename(Barcode=Systematic),by="Barcode")
   return(z)
 }
 
