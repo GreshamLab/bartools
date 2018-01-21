@@ -6,6 +6,8 @@ summarize_barnon_plot <- function(df, datadir=getwd(), format = '.pdf'){
   library(GGally)
   library(tidyverse)
   library(gridExtra)
+  
+  #Library size overview
   p1 <- df %>%
     group_by(Sample, Tag, Conditions, UID) %>%
     summarise(total=sum(Counts)) %>%
@@ -18,7 +20,6 @@ summarize_barnon_plot <- function(df, datadir=getwd(), format = '.pdf'){
     theme(axis.text.x=element_text(angle=90, size=4),legend.position="bottom")
   
   #Histogram of strain frequencies over all libraries
-  
   p2 <- df %>%
     group_by(Barcode, Tag, Conditions) %>%  
     summarise(straincounts=sum(Counts)) %>%
@@ -42,8 +43,7 @@ summarize_barnon_plot <- function(df, datadir=getwd(), format = '.pdf'){
     ggtitle("Scatter plot for UP vd DOWN tag")+
     theme(axis.text.x=element_text(angle=90),legend.position="bottom")
   
-  #install.packages("GGally")
-  
+  #Pairwise comparison across all sample 
   p4 <- df %>% 
     unite(Sample_Tag, Sample, Tag) %>%
     unstack(form = Counts ~ Sample_Tag) %>%
@@ -51,9 +51,10 @@ summarize_barnon_plot <- function(df, datadir=getwd(), format = '.pdf'){
     theme_bw(base_size=6)+
     ggtitle("pairwise comparison for libraries (correlation coefficient)")+
     theme(axis.text.x=element_text(size=4))
-  #pdf(file=paste0(datadir, "/QC_plots", format))
-  #ggsave(p4, file=paste0(datadir, "/QC_plots", format), width = 14, height = 10, units = "cm")
+ 
   MyPlots = list(p1,p2,p3,p4)
+  
+  #save plot according to your taste
   for (i in 1:length(MyPlots)) {
     ggsave(file=paste0(datadir, "/QC_plots_", i, format), 
            plot=MyPlots[[i]],width = 8, height = 8)
