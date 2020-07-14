@@ -1,0 +1,11 @@
+Package: bartools
+Type: Package
+Title: Tools for Analyzing Barseq Data
+Version: 0.1.0
+Author: Gresham Lab
+Maintainer: David Gresham <dgresham@nyu.edu>
+Description: This is a set of functions that are used for analysis barseq data
+    Functions are designed to be used on data that has been generated from BarNone or Bartender.
+License: MIT + license
+Encoding: UTF-8
+LazyData: true
